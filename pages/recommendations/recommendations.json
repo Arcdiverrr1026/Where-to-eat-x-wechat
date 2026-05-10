@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "推荐结果",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "restaurant-card": "../../components/restaurant-card/restaurant-card"
+  }
+}

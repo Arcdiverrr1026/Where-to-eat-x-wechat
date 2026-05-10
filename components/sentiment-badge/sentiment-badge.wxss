@@ -1,0 +1,26 @@
+.sentiment-badge {
+  display: inline-block;
+  padding: 4rpx 16rpx;
+  border-radius: 8rpx;
+  font-size: 22rpx;
+}
+
+.tone-positive {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+
+.tone-negative {
+  background: #FFEBEE;
+  color: #C62828;
+}
+
+.tone-neutral {
+  background: #F5F5F5;
+  color: #757575;
+}
+
+.tone-unknown {
+  background: #F5F5F5;
+  color: #999999;
+}

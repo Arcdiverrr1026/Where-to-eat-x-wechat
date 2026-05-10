@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "sentiment-badge": "../sentiment-badge/sentiment-badge"
+  }
+}

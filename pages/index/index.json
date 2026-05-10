@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "去哪吃",
+  "usingComponents": {
+    "filter-picker": "../../components/filter-picker/filter-picker"
+  }
+}

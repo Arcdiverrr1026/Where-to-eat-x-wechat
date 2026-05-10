@@ -1,0 +1,27 @@
+<view class="page-recommendations">
+  <view class="filter-summary" wx:if="{{filters}}">
+    <text class="summary-tag">{{filters.category}}</text>
+    <text class="summary-tag">{{filters.budget}}</text>
+    <text class="summary-tag">{{filters.distance}}</text>
+    <text class="summary-tag">{{filters.scene}}</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading-container">
+    <text>正在搜索附近餐厅...</text>
+  </view>
+
+  <view wx:elif="{{restaurants.length === 0 && !loading}}" class="empty-tip">
+    <text>没有找到符合条件的餐厅，试试换个筛选条件？</text>
+  </view>
+
+  <view wx:else>
+    <view class="result-count">
+      <text>找到 {{total}} 家餐厅</text>
+    </view>
+    <restaurant-card
+      wx:for="{{restaurants}}"
+      wx:key="restaurant_id"
+      restaurant="{{item}}"
+    />
+  </view>
+</view>

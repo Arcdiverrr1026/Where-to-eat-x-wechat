@@ -1,0 +1,67 @@
+<view class="page-map">
+  <!-- 地图 -->
+  <map
+    id="nearbyMap"
+    latitude="{{latitude}}"
+    longitude="{{longitude}}"
+    scale="{{scale}}"
+    markers="{{markers}}"
+    show-location
+    enable-zoom
+    enable-scroll
+    bindmarkertap="onMarkerTap"
+    bindcallouttap="onCalloutTap"
+    bindtap="onTapMap"
+    class="map-area"
+  />
+
+  <!-- 顶部筛选按钮 -->
+  <view class="top-bar">
+    <view class="filter-toggle" bindtap="onToggleFilter">
+      <text class="filter-icon">☰</text>
+      <text class="filter-text">{{filters ? filters.category : '筛选'}}</text>
+    </view>
+    <view class="recenter-btn" bindtap="onRecenter">
+      <text class="recenter-icon">◎</text>
+    </view>
+  </view>
+
+  <!-- 筛选面板 -->
+  <view class="filter-panel" wx:if="{{showFilter}}">
+    <filter-picker bindchange="onFilterChange" />
+    <view class="search-btn" bindtap="onSearch">搜索附近餐厅</view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-toast" wx:if="{{loading}}">
+    <text class="loading-text">搜索中...</text>
+  </view>
+
+  <!-- 餐厅数量提示 -->
+  <view class="count-tip" wx:if="{{restaurants.length > 0 && !selectedRestaurant && !showFilter}}">
+    <text class="count-text">找到 {{restaurants.length}} 家餐厅，点击标记查看详情</text>
+  </view>
+
+  <!-- 选中餐厅信息卡片 -->
+  <view class="restaurant-info" wx:if="{{selectedRestaurant}}" catchtap="goToDetail">
+    <view class="info-left">
+      <text class="info-name">{{selectedRestaurant.name}}</text>
+      <view class="info-meta">
+        <text class="info-category">{{selectedRestaurant.category}}</text>
+        <text class="info-price">{{selectedRestaurant.price_text}}</text>
+      </view>
+      <view class="info-meta">
+        <text class="info-distance">{{selectedRestaurant.distance_text}}</text>
+        <text class="info-scene {{selectedRestaurant.scene_match === '当前场景高匹配' ? 'match-high' : 'match-mid'}}">
+          {{selectedRestaurant.scene_match}}
+        </text>
+      </view>
+      <view class="info-tags" wx:if="{{selectedRestaurant.tags.length > 0}}">
+        <text wx:for="{{selectedRestaurant.tags}}" wx:key="*this" class="info-tag">{{item}}</text>
+      </view>
+    </view>
+    <view class="info-right">
+      <text class="go-detail">详情 ></text>
+    </view>
+  </view>
+</view>

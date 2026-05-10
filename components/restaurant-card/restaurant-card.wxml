@@ -1,0 +1,29 @@
+<view class="card" bindtap="onTap">
+  <view class="card-header">
+    <text class="card-name">{{restaurant.name}}</text>
+    <sentiment-badge tone="{{restaurant.comment_tone}}" />
+  </view>
+
+  <view class="card-info">
+    <text class="card-category">{{restaurant.category}}</text>
+    <text class="card-divider">·</text>
+    <text class="card-price">{{restaurant.price_text}}</text>
+    <text class="card-divider">·</text>
+    <text class="card-distance">{{restaurant.distance_text}}</text>
+  </view>
+
+  <view class="card-meta">
+    <text class="card-scene">{{restaurant.scene_match}}</text>
+    <text class="card-reviews">{{restaurant.review_count}}条评价</text>
+  </view>
+
+  <view class="card-tags" wx:if="{{restaurant.tags.length > 0}}">
+    <text wx:for="{{restaurant.tags}}" wx:key="*this" class="card-tag">{{item}}</text>
+  </view>
+
+  <view class="card-risk" wx:if="{{restaurant.risk_flags.length > 0}}">
+    <text wx:for="{{restaurant.risk_flags}}" wx:key="*this" class="risk-flag">⚠ {{item}}</text>
+  </view>
+
+  <text class="card-summary" wx:if="{{restaurant.summary}}">{{restaurant.summary}}</text>
+</view>

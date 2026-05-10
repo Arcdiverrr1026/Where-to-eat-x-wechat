@@ -1,0 +1,53 @@
+<view class="filter-picker">
+  <view class="filter-group">
+    <text class="filter-label">分类</text>
+    <scroll-view scroll-x class="filter-tags">
+      <view
+        wx:for="{{categories}}"
+        wx:key="*this"
+        class="tag {{selectedCategory === item ? 'tag-active' : ''}}"
+        bindtap="onCategoryTap"
+        data-value="{{item}}"
+      >{{item}}</view>
+    </scroll-view>
+  </view>
+
+  <view class="filter-group">
+    <text class="filter-label">预算</text>
+    <scroll-view scroll-x class="filter-tags">
+      <view
+        wx:for="{{budgets}}"
+        wx:key="*this"
+        class="tag {{selectedBudget === item ? 'tag-active' : ''}}"
+        bindtap="onBudgetTap"
+        data-value="{{item}}"
+      >{{item}}</view>
+    </scroll-view>
+  </view>
+
+  <view class="filter-group">
+    <text class="filter-label">距离</text>
+    <scroll-view scroll-x class="filter-tags">
+      <view
+        wx:for="{{distances}}"
+        wx:key="*this"
+        class="tag {{selectedDistance === item ? 'tag-active' : ''}}"
+        bindtap="onDistanceTap"
+        data-value="{{item}}"
+      >{{item}}</view>
+    </scroll-view>
+  </view>
+
+  <view class="filter-group">
+    <text class="filter-label">场景</text>
+    <scroll-view scroll-x class="filter-tags">
+      <view
+        wx:for="{{scenes}}"
+        wx:key="*this"
+        class="tag {{selectedScene === item ? 'tag-active' : ''}}"
+        bindtap="onSceneTap"
+        data-value="{{item}}"
+      >{{item}}</view>
+    </scroll-view>
+  </view>
+</view>

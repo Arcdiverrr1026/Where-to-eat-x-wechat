@@ -1,0 +1,16 @@
+<view class="page-index">
+  <view class="hero">
+    <text class="hero-title">去哪吃</text>
+    <text class="hero-subtitle">高校餐厅避雷助手</text>
+  </view>
+
+  <view class="filter-section">
+    <filter-picker bindchange="onFilterChange" />
+  </view>
+
+  <view class="btn-primary" bindtap="onSearch">开始推荐</view>
+
+  <view class="tips">
+    <text class="tips-text">基于真实评价 · 帮你避开雷区</text>
+  </view>
+</view>

@@ -1,0 +1,14 @@
+<view class="review-card">
+  <view class="review-header">
+    <star-rating rating="{{review.rating}}" />
+    <text class="review-time" wx:if="{{review.days_ago !== undefined && review.days_ago > 0}}">{{review.days_ago}}天前</text>
+    <text class="review-time" wx:elif="{{review.days_ago === 0}}">今天</text>
+    <text class="review-time" wx:elif="{{review.created_at}}">{{review.created_at}}</text>
+  </view>
+  <view class="review-content-wrap">
+    <text class="review-content {{expanded ? 'review-expanded' : ''}}">{{review.content}}</text>
+    <text class="review-toggle" wx:if="{{review.content.length > 100}}" bindtap="toggleExpand">
+      {{expanded ? '收起' : '展开'}}
+    </text>
+  </view>
+</view>
