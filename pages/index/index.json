@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "Where to Eat",
+  "usingComponents": {
+    "filter-picker": "../../components/filter-picker/filter-picker"
+  }
+}

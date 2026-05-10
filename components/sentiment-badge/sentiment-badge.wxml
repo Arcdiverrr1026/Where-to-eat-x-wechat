@@ -1,0 +1,3 @@
+<view class="sentiment-badge {{toneClass}}">
+  <text class="badge-text">{{tone}}</text>
+</view>

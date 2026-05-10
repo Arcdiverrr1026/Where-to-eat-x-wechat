@@ -1,0 +1,44 @@
+.review-card {
+  background: transparent;
+  border-bottom: 2rpx solid #E8E0D5;
+  padding: 32rpx 0;
+  margin-bottom: 0;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.review-time {
+  font-size: 26rpx;
+  color: #8C847D;
+}
+
+.review-content-wrap {
+  position: relative;
+}
+
+.review-content {
+  font-size: 30rpx;
+  color: #3A332E;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.review-expanded {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.review-toggle {
+  font-size: 28rpx;
+  color: #B86B52;
+  margin-top: 12rpx;
+  display: inline-block;
+}

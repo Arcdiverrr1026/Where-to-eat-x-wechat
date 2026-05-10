@@ -1,0 +1,42 @@
+<view class="page-recommendations">
+  <view class="filter-summary" wx:if="{{filters}}">
+    <text class="summary-tag">{{filters.category}}</text>
+    <text class="summary-tag">{{filters.budget}}</text>
+    <text class="summary-tag">{{filters.distance}}</text>
+    <text class="summary-tag">{{filters.scene}}</text>
+  </view>
+
+  <view wx:if="{{loading}}">
+    <view class="loading-hint-bar">
+      <view class="loading-spinner-small"></view>
+      <text class="loading-hint-text">正在搜索附近餐厅</text>
+    </view>
+    <!-- 骨架屏 -->
+    <view class="skeleton-card" wx:for="{{[1,2,3,4]}}" wx:key="*this">
+      <view class="skeleton-line skeleton-title"></view>
+      <view class="skeleton-line skeleton-sub"></view>
+      <view class="skeleton-row">
+        <view class="skeleton-line skeleton-tag"></view>
+        <view class="skeleton-line skeleton-tag"></view>
+        <view class="skeleton-line skeleton-tag"></view>
+      </view>
+      <view class="skeleton-line skeleton-desc"></view>
+      <view class="skeleton-line skeleton-desc skeleton-desc-short"></view>
+    </view>
+  </view>
+
+  <view wx:elif="{{restaurants.length === 0 && !loading}}" class="empty-tip">
+    <text>没有找到符合条件的餐厅，试试换个筛选条件？</text>
+  </view>
+
+  <view wx:else>
+    <view class="result-count">
+      <text>找到 {{total}} 家餐厅</text>
+    </view>
+    <restaurant-card
+      wx:for="{{restaurants}}"
+      wx:key="restaurant_id"
+      restaurant="{{item}}"
+    />
+  </view>
+</view>

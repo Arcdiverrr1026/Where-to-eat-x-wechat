@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "附近餐厅",
+  "usingComponents": {
+    "filter-picker": "../../components/filter-picker/filter-picker"
+  }
+}

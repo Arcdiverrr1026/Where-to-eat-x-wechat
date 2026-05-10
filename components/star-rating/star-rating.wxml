@@ -1,0 +1,3 @@
+<view class="star-rating">
+  <text wx:for="{{stars}}" wx:key="index" class="star {{item ? 'star-filled' : 'star-empty'}}">★</text>
+</view>

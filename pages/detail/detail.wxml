@@ -1,0 +1,128 @@
+<view class="page-detail" wx:if="{{restaurant}}">
+  <!-- 基本信息 -->
+  <view class="info-section">
+    <text class="info-name">{{restaurant.name}}</text>
+    <text class="info-tone" wx:if="{{restaurant.comment_overview.length > 0}}">{{restaurant.comment_overview[0]}}</text>
+    <view class="info-row">
+      <text class="info-label">分类</text>
+      <text class="info-value">{{restaurant.category}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">人均</text>
+      <text class="info-value">{{restaurant.price_text}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">地址</text>
+      <text class="info-value">{{restaurant.address}}</text>
+    </view>
+    <view class="info-row" wx:if="{{restaurant.business_hours}}">
+      <text class="info-label">营业</text>
+      <text class="info-value">{{restaurant.business_hours}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">距离</text>
+      <text class="info-value">{{restaurant.distance_text}} · {{restaurant.travel_text}}</text>
+    </view>
+  </view>
+
+  <!-- 标签和风险 -->
+  <view class="tags-section" wx:if="{{restaurant.tags.length > 0}}">
+    <text class="section-title">标签</text>
+    <view class="tags-wrap">
+      <text wx:for="{{restaurant.tags}}" wx:key="*this" class="tag">{{item}}</text>
+    </view>
+  </view>
+
+  <view class="risk-section" wx:if="{{restaurant.risk_flags.length > 0}}">
+    <text class="section-title">风险提示</text>
+    <text wx:for="{{restaurant.risk_flags}}" wx:key="*this" class="risk-item">⚠ {{item}}</text>
+  </view>
+
+  <!-- 情绪分析 -->
+  <view class="sentiment-section" wx:if="{{restaurant.comment_highlights.length > 0 || restaurant.caution_notes.length > 0}}">
+    <text class="section-title">评价分析</text>
+    <view wx:if="{{restaurant.comment_highlights.length > 0}}" class="highlight-list">
+      <text class="sub-title">好评亮点</text>
+      <text wx:for="{{restaurant.comment_highlights}}" wx:key="*this" class="highlight-item">👍 {{item}}</text>
+    </view>
+    <view wx:if="{{restaurant.caution_notes.length > 0}}" class="caution-list">
+      <text class="sub-title">注意事项</text>
+      <text wx:for="{{restaurant.caution_notes}}" wx:key="*this" class="caution-item">⚠ {{item}}</text>
+    </view>
+  </view>
+
+  <!-- 地图 -->
+  <view class="map-section">
+    <map
+      id="detailMap"
+      latitude="{{restaurant.lat}}"
+      longitude="{{restaurant.lng}}"
+      scale="16"
+      markers="{{markers}}"
+      show-location
+      class="detail-map"
+    />
+    <view class="navigate-btn" bindtap="onNavigate">
+      <text>📍 导航到这里</text>
+    </view>
+  </view>
+
+  <!-- 评价列表 -->
+  <view class="reviews-section">
+    <view class="reviews-header">
+      <text class="section-title">用户评价 ({{restaurant.review_count}})</text>
+      <view class="write-review-btn" bindtap="onWriteReview">写评价</view>
+    </view>
+    <view wx:if="{{restaurant.reviews.length === 0}}" class="empty-tip">
+      <text>暂无评价，快来写第一条吧</text>
+    </view>
+    <review-card
+      wx:for="{{restaurant.reviews}}"
+      wx:key="index"
+      review="{{item}}"
+    />
+  </view>
+
+  <!-- 写评价弹窗 -->
+  <view class="review-modal" wx:if="{{showReviewModal}}" catchtap="onCloseModal">
+    <view class="modal-content" catchtap="onModalContentTap">
+      <text class="modal-title">写评价</text>
+
+      <view class="rating-input">
+        <text class="rating-label">评分：</text>
+        <view class="rating-stars">
+          <text
+            wx:for="{{[1,2,3,4,5]}}"
+            wx:key="*this"
+            class="input-star {{reviewRating >= item ? 'star-active' : ''}}"
+            bindtap="onRatingTap"
+            data-rating="{{item}}"
+          >★</text>
+        </view>
+      </view>
+
+      <textarea
+        class="review-input"
+        placeholder="分享你的用餐体验（2-500字）"
+        maxlength="500"
+        value="{{reviewContent}}"
+        bindinput="onReviewInput"
+      />
+
+      <view class="modal-actions">
+        <view class="modal-btn-cancel" bindtap="onCloseModal">取消</view>
+        <view class="modal-btn-submit {{submitting ? 'btn-disabled' : ''}}" bindtap="onSubmitReview">
+          {{submitting ? '提交中...' : '提交'}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view wx:elif="{{loading}}" class="loading-container">
+  <text>加载中...</text>
+</view>
+
+<view wx:else class="empty-tip">
+  <text>餐厅不存在或已被删除</text>
+</view>
