@@ -4,70 +4,75 @@
 }
 
 .info-section {
-  background: #FFFFFF;
-  border-radius: 16rpx;
-  padding: 24rpx;
-  margin-bottom: 20rpx;
+  background: linear-gradient(135deg, #FFFEFC 0%, #F6F3EB 100%);
+  border-radius: 8rpx;
+  border: 2rpx solid #E8E0D5;
+  padding: 40rpx;
+  margin-bottom: 32rpx;
+  box-shadow: 0 12rpx 32rpx rgba(0, 0, 0, 0.04);
 }
 
 .info-name {
-  font-size: 36rpx;
-  font-weight: 700;
-  color: #333333;
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #3A332E;
   display: block;
-  margin-bottom: 8rpx;
+  margin-bottom: 16rpx;
 }
 
 .info-tone {
-  font-size: 24rpx;
-  color: #FF6B35;
-  background: #FFF0EA;
-  padding: 6rpx 16rpx;
-  border-radius: 16rpx;
+  font-size: 26rpx;
+  color: #B86B52;
+  background: transparent;
+  border: 2rpx solid #B86B52;
+  padding: 4rpx 16rpx;
+  border-radius: 4rpx;
   display: inline-block;
-  margin-bottom: 16rpx;
+  margin-bottom: 24rpx;
 }
 
 .info-row {
   display: flex;
-  margin-bottom: 10rpx;
-  font-size: 26rpx;
+  margin-bottom: 16rpx;
+  font-size: 30rpx;
 }
 
 .info-label {
-  color: #999999;
-  width: 80rpx;
+  color: #8C847D;
+  width: 100rpx;
   flex-shrink: 0;
 }
 
 .info-value {
-  color: #555555;
+  color: #3A332E;
   flex: 1;
 }
 
 .section-title {
-  font-size: 30rpx;
-  font-weight: 600;
-  color: #333333;
-  margin-bottom: 12rpx;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #3A332E;
+  margin-bottom: 20rpx;
   display: block;
 }
 
 .sub-title {
-  font-size: 26rpx;
-  color: #666666;
-  margin-bottom: 8rpx;
-  margin-top: 12rpx;
+  font-size: 30rpx;
+  color: #8C847D;
+  margin-bottom: 12rpx;
+  margin-top: 24rpx;
   display: block;
 }
 
 .tags-section,
 .risk-section,
 .sentiment-section {
-  background: #FFFFFF;
-  border-radius: 16rpx;
-  padding: 24rpx;
-  margin-bottom: 20rpx;
+  background: linear-gradient(135deg, #FFFEFC 0%, #F6F3EB 100%);
+  border-radius: 8rpx;
+  border: 2rpx solid #E8E0D5;
+  padding: 40rpx;
+  margin-bottom: 32rpx;
+  box-shadow: 0 12rpx 32rpx rgba(0, 0, 0, 0.04);
 }
 
 .tags-wrap {
@@ -77,62 +82,74 @@
 }
 
 .tag {
-  background: #F0F0F0;
-  color: #666666;
-  padding: 6rpx 18rpx;
-  border-radius: 8rpx;
-  font-size: 24rpx;
+  background: transparent;
+  border: 2rpx solid #E8E0D5;
+  color: #8C847D;
+  padding: 4rpx 16rpx;
+  border-radius: 4rpx;
+  font-size: 26rpx;
 }
 
 .risk-item {
-  color: #E53935;
-  font-size: 24rpx;
+  color: #9E4730;
+  font-size: 26rpx;
   display: block;
-  margin-bottom: 6rpx;
+  margin-bottom: 10rpx;
+}
+
+.highlight-list,
+.caution-list {
+  margin-top: 8rpx;
 }
 
 .highlight-item {
-  color: #2E7D32;
-  font-size: 24rpx;
+  color: #556B2F;
+  font-size: 26rpx;
   display: block;
-  margin-bottom: 6rpx;
+  margin-bottom: 10rpx;
 }
 
 .caution-item {
-  color: #E65100;
-  font-size: 24rpx;
+  color: #9E4730;
+  font-size: 26rpx;
   display: block;
-  margin-bottom: 6rpx;
+  margin-bottom: 10rpx;
 }
 
 .map-section {
-  background: #FFFFFF;
-  border-radius: 16rpx;
-  padding: 24rpx;
-  margin-bottom: 20rpx;
+  background: linear-gradient(135deg, #FFFEFC 0%, #F6F3EB 100%);
+  border-radius: 8rpx;
+  border: 2rpx solid #E8E0D5;
+  padding: 40rpx;
+  margin-bottom: 32rpx;
+  box-shadow: 0 12rpx 32rpx rgba(0, 0, 0, 0.04);
 }
 
 .detail-map {
   width: 100%;
-  height: 300rpx;
-  border-radius: 12rpx;
+  height: 480rpx;
+  border-radius: 8rpx;
 }
 
 .navigate-btn {
-  margin-top: 16rpx;
+  margin-top: 24rpx;
   text-align: center;
   padding: 16rpx;
-  background: #FFF0EA;
-  border-radius: 12rpx;
-  color: #FF6B35;
-  font-size: 28rpx;
-  font-weight: 600;
+  background: transparent;
+  border: 2rpx solid #B86B52;
+  border-radius: 8rpx;
+  color: #B86B52;
+  font-size: 30rpx;
+  font-weight: 500;
 }
 
 .reviews-section {
-  background: #FFFFFF;
-  border-radius: 16rpx;
-  padding: 24rpx;
+  background: linear-gradient(135deg, #FFFEFC 0%, #F6F3EB 100%);
+  border-radius: 8rpx;
+  border: 2rpx solid #E8E0D5;
+  padding: 40rpx;
+  margin-bottom: 32rpx;
+  box-shadow: 0 12rpx 32rpx rgba(0, 0, 0, 0.04);
 }
 
 .reviews-header {
@@ -143,11 +160,12 @@
 }
 
 .write-review-btn {
-  background: #FF6B35;
+  background: #B86B52;
   color: #FFFFFF;
-  padding: 10rpx 28rpx;
-  border-radius: 24rpx;
-  font-size: 24rpx;
+  padding: 12rpx 32rpx;
+  border-radius: 8rpx;
+  font-size: 26rpx;
+  font-weight: 500;
 }
 
 /* 评价弹窗 */
@@ -164,29 +182,30 @@
 }
 
 .modal-content {
-  background: #FFFFFF;
+  background: #FDFBF7;
   width: 100%;
   border-radius: 24rpx 24rpx 0 0;
-  padding: 40rpx 32rpx;
+  padding: 40rpx 40rpx;
   padding-bottom: calc(40rpx + env(safe-area-inset-bottom));
 }
 
 .modal-title {
-  font-size: 34rpx;
-  font-weight: 600;
+  font-size: 38rpx;
+  font-weight: bold;
+  color: #3A332E;
   display: block;
-  margin-bottom: 24rpx;
+  margin-bottom: 32rpx;
 }
 
 .rating-input {
   display: flex;
   align-items: center;
-  margin-bottom: 24rpx;
+  margin-bottom: 32rpx;
 }
 
 .rating-label {
-  font-size: 28rpx;
-  color: #666666;
+  font-size: 30rpx;
+  color: #8C847D;
   margin-right: 16rpx;
 }
 
@@ -196,49 +215,51 @@
 }
 
 .input-star {
-  font-size: 48rpx;
-  color: #DDDDDD;
+  font-size: 56rpx;
+  color: #E8E0D5;
 }
 
 .star-active {
-  color: #FFB800;
+  color: #B86B52;
 }
 
 .review-input {
   width: 100%;
-  height: 200rpx;
-  border: 1rpx solid #E0E0E0;
-  border-radius: 12rpx;
-  padding: 16rpx;
-  font-size: 28rpx;
-  margin-bottom: 24rpx;
+  height: 240rpx;
+  border: 2rpx solid #E8E0D5;
+  border-radius: 8rpx;
+  padding: 24rpx;
+  font-size: 30rpx;
+  color: #3A332E;
+  margin-bottom: 32rpx;
   box-sizing: border-box;
 }
 
 .modal-actions {
   display: flex;
-  gap: 20rpx;
+  gap: 24rpx;
 }
 
 .modal-btn-cancel {
   flex: 1;
   text-align: center;
-  padding: 20rpx;
-  border-radius: 12rpx;
-  background: #F5F5F5;
-  color: #666666;
-  font-size: 30rpx;
+  padding: 24rpx;
+  border-radius: 8rpx;
+  border: 2rpx solid #E8E0D5;
+  background: transparent;
+  color: #8C847D;
+  font-size: 32rpx;
 }
 
 .modal-btn-submit {
   flex: 1;
   text-align: center;
-  padding: 20rpx;
-  border-radius: 12rpx;
-  background: #FF6B35;
+  padding: 24rpx;
+  border-radius: 8rpx;
+  background: #B86B52;
   color: #FFFFFF;
-  font-size: 30rpx;
-  font-weight: 600;
+  font-size: 32rpx;
+  font-weight: bold;
 }
 
 .btn-disabled {

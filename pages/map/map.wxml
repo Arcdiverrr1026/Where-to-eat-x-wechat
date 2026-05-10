@@ -28,7 +28,13 @@
 
   <!-- 筛选面板 -->
   <view class="filter-panel" wx:if="{{showFilter}}">
-    <filter-picker bindchange="onFilterChange" />
+    <filter-picker
+      bindchange="onFilterChange"
+      initialCategory="{{filters.category}}"
+      initialBudget="{{filters.budget}}"
+      initialDistance="{{filters.distance}}"
+      initialScene="{{filters.scene}}"
+    />
     <view class="search-btn" bindtap="onSearch">搜索附近餐厅</view>
   </view>
 

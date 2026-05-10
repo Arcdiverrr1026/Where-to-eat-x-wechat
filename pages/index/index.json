@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "去哪吃",
+  "navigationBarTitleText": "Where to Eat",
   "usingComponents": {
     "filter-picker": "../../components/filter-picker/filter-picker"
   }

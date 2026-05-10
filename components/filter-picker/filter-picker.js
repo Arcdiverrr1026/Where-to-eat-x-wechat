@@ -17,6 +17,9 @@ Component({
     selectedBudget: '',
     selectedDistance: '',
     selectedScene: '',
+    budgetMin: '',
+    budgetMax: '',
+    showCustomBudget: false,
   },
 
   lifetimes: {
@@ -37,7 +40,27 @@ Component({
       this.emitChange()
     },
     onBudgetTap(e) {
-      this.setData({ selectedBudget: e.currentTarget.dataset.value })
+      this.setData({
+        selectedBudget: e.currentTarget.dataset.value,
+        showCustomBudget: false,
+        budgetMin: '',
+        budgetMax: '',
+      })
+      this.emitChange()
+    },
+    onToggleCustomBudget() {
+      this.setData({ showCustomBudget: !this.data.showCustomBudget })
+      if (!this.data.showCustomBudget) {
+        this.setData({ budgetMin: '', budgetMax: '' })
+        this.emitChange()
+      }
+    },
+    onBudgetMinInput(e) {
+      this.setData({ budgetMin: e.detail.value })
+      this.emitChange()
+    },
+    onBudgetMaxInput(e) {
+      this.setData({ budgetMax: e.detail.value })
       this.emitChange()
     },
     onDistanceTap(e) {
@@ -49,12 +72,17 @@ Component({
       this.emitChange()
     },
     emitChange() {
-      this.triggerEvent('change', {
+      const detail = {
         category: this.data.selectedCategory,
         budget: this.data.selectedBudget,
         distance: this.data.selectedDistance,
         scene: this.data.selectedScene,
-      })
+      }
+      const min = parseFloat(this.data.budgetMin)
+      const max = parseFloat(this.data.budgetMax)
+      if (!isNaN(min)) detail.budget_min = min
+      if (!isNaN(max)) detail.budget_max = max
+      this.triggerEvent('change', detail)
     },
   },
 })

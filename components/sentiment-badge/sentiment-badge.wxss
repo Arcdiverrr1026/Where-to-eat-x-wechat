@@ -24,3 +24,8 @@
   background: #F5F5F5;
   color: #999999;
 }
+
+.tone-count {
+  background: #E3F2FD;
+  color: #1565C0;
+}

@@ -7,7 +7,7 @@
   </view>
   <view class="review-content-wrap">
     <text class="review-content {{expanded ? 'review-expanded' : ''}}">{{review.content}}</text>
-    <text class="review-toggle" wx:if="{{review.content.length > 100}}" bindtap="toggleExpand">
+    <text class="review-toggle" wx:if="{{review.content && review.content.length > 100}}" bindtap="toggleExpand">
       {{expanded ? '收起' : '展开'}}
     </text>
   </view>

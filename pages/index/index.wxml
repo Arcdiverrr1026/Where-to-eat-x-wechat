@@ -1,14 +1,14 @@
 <view class="page-index">
   <view class="hero">
-    <text class="hero-title">去哪吃</text>
-    <text class="hero-subtitle">高校餐厅避雷助手</text>
+    <text class="hero-greeting">你好，</text>
+    <text class="hero-title">探索你的下一顿美食</text>
   </view>
 
   <view class="filter-section">
     <filter-picker bindchange="onFilterChange" />
   </view>
 
-  <view class="btn-primary" bindtap="onSearch">开始推荐</view>
+  <view class="btn-primary btn-search" bindtap="onSearch">开始探索</view>
 
   <view class="tips">
     <text class="tips-text">基于真实评价 · 帮你避开雷区</text>

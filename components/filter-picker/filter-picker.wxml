@@ -18,11 +18,18 @@
       <view
         wx:for="{{budgets}}"
         wx:key="*this"
-        class="tag {{selectedBudget === item ? 'tag-active' : ''}}"
+        class="tag {{selectedBudget === item && !showCustomBudget ? 'tag-active' : ''}}"
         bindtap="onBudgetTap"
         data-value="{{item}}"
       >{{item}}</view>
+      <view class="tag {{showCustomBudget ? 'tag-active' : ''}}" bindtap="onToggleCustomBudget">自定义</view>
     </scroll-view>
+    <view class="custom-budget" wx:if="{{showCustomBudget}}">
+      <input class="budget-input" type="digit" placeholder="最低" value="{{budgetMin}}" bindinput="onBudgetMinInput" />
+      <text class="budget-sep">—</text>
+      <input class="budget-input" type="digit" placeholder="最高" value="{{budgetMax}}" bindinput="onBudgetMaxInput" />
+      <text class="budget-unit">元</text>
+    </view>
   </view>
 
   <view class="filter-group">

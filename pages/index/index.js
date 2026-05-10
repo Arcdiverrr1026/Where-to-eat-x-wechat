@@ -5,6 +5,11 @@ Page({
     filters: null,
   },
 
+  onShow() {
+    // 预获取定位，点击推荐时可直接使用
+    locationUtil.getLocation().catch(() => {})
+  },
+
   onFilterChange(e) {
     this.setData({ filters: e.detail })
   },
@@ -16,6 +21,11 @@ Page({
       return
     }
 
+    if (filters.budget_min != null && filters.budget_max != null && filters.budget_min > filters.budget_max) {
+      wx.showToast({ title: '最低预算不能大于最高预算', icon: 'none' })
+      return
+    }
+
     wx.showLoading({ title: '定位中...' })
 
     locationUtil.getLocation().then(loc => {
@@ -24,6 +34,8 @@ Page({
         location: { lat: loc.latitude, lng: loc.longitude },
         category: filters.category,
         budget: filters.budget,
+        budget_min: filters.budget_min,
+        budget_max: filters.budget_max,
         distance: filters.distance,
         scene: filters.scene,
       }))
@@ -38,7 +50,7 @@ Page({
 
   onShareAppMessage() {
     return {
-      title: '去哪吃 - 高校餐厅避雷助手',
+      title: 'Where to Eat - 高校餐厅避雷助手',
       path: '/pages/index/index',
     }
   },

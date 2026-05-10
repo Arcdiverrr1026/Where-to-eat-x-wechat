@@ -1,4 +1,5 @@
 const api = require('../../utils/api')
+const reviewStore = require('../../utils/reviewStore')
 
 Page({
   data: {
@@ -13,19 +14,29 @@ Page({
 
   onLoad(options) {
     if (options.id) {
-      const lat = options.lat ? parseFloat(options.lat) : null
-      const lng = options.lng ? parseFloat(options.lng) : null
-      this.fetchDetail(options.id, lat, lng)
+      this.fetchDetail(options.id)
     }
   },
 
-  fetchDetail(id, lat, lng) {
+  fetchDetail(id, retryCount) {
+    retryCount = retryCount || 0
     this.setData({ loading: true })
     api.get('/api/restaurants/' + id).then(res => {
-      // 使用传入的坐标（详情 API 不返回经纬度）
-      if (lat && lng) {
-        res.lat = lat
-        res.lng = lng
+      // 数组字段空值保护
+      res.tags = res.tags || []
+      res.risk_flags = res.risk_flags || []
+      res.comment_highlights = res.comment_highlights || []
+      res.caution_notes = res.caution_notes || []
+      res.comment_overview = res.comment_overview || []
+      res.reviews = res.reviews || []
+      // 更新本地缓存
+      reviewStore.setCount(id, res.review_count)
+      // 修正：有评价时概要不应显示"没人留言"
+      if (res.review_count > 0 && res.comment_overview && res.comment_overview.length > 0) {
+        const first = res.comment_overview[0]
+        if (first.includes('没人留言') || first.includes('还没有') || first.includes('暂无')) {
+          res.comment_overview[0] = '已有' + res.review_count + '条评价'
+        }
       }
       const markers = []
       if (res.lat && res.lng) {
@@ -48,8 +59,15 @@ Page({
       })
       wx.setNavigationBarTitle({ title: res.name })
     }).catch(err => {
+      // 404 或网络错误时重试（后端缓存可能尚未就绪）
+      if ((err.statusCode === 404 || !err.statusCode) && retryCount < 2) {
+        setTimeout(() => {
+          this.fetchDetail(id, retryCount + 1)
+        }, 1500 * (retryCount + 1))
+        return
+      }
       this.setData({ loading: false })
-      wx.showToast({ title: '加载失败', icon: 'none' })
+      wx.showToast({ title: '加载失败，请返回重试', icon: 'none' })
       console.error('fetchDetail error:', err)
     })
   },
@@ -74,9 +92,7 @@ Page({
     this.setData({ showReviewModal: false })
   },
 
-  onModalContentTap() {
-    // 阻止事件冒泡，防止点击内容区关闭弹窗
-  },
+  onModalContentTap() {},
 
   onRatingTap(e) {
     this.setData({ reviewRating: e.currentTarget.dataset.rating })
@@ -96,18 +112,20 @@ Page({
     }
 
     this.setData({ submitting: true })
+    this._submitReview(restaurant.restaurant_id, reviewRating, reviewContent, 0)
+  },
+
+  _submitReview(restaurantId, rating, content, retryCount) {
     api.post('/api/reviews/feedback', {
-      restaurant_id: restaurant.restaurant_id,
-      rating: reviewRating,
-      content: reviewContent,
+      restaurant_id: restaurantId,
+      rating: rating,
+      content: content,
     }).then(() => {
-      // 立即将用户评价添加到列表顶部
-      const newReview = {
-        rating: reviewRating,
-        content: reviewContent,
-        created_at: '刚刚',
-      }
+      const restaurant = this.data.restaurant
+      const newReview = { rating, content, created_at: '刚刚' }
       const reviews = [newReview].concat(restaurant.reviews || [])
+      // 记录到本地存储
+      reviewStore.addReview(restaurantId)
       this.setData({
         submitting: false,
         showReviewModal: false,
@@ -115,9 +133,18 @@ Page({
         'restaurant.review_count': (restaurant.review_count || 0) + 1,
       })
       wx.showToast({ title: '评价成功', icon: 'success' })
-      // 后台刷新详情数据
-      this.fetchDetail(restaurant.restaurant_id)
+      // 刷新详情以获取最新的评价分析
+      setTimeout(() => {
+        this.fetchDetail(restaurantId)
+      }, 500)
     }).catch(err => {
+      // 网络错误重试一次
+      if (!err.statusCode && retryCount < 1) {
+        setTimeout(() => {
+          this._submitReview(restaurantId, rating, content, retryCount + 1)
+        }, 1000)
+        return
+      }
       this.setData({ submitting: false })
       if (err.statusCode === 429) {
         wx.showToast({ title: '评价太频繁，请稍后再试', icon: 'none' })
@@ -131,7 +158,7 @@ Page({
   onShareAppMessage() {
     const r = this.data.restaurant
     return {
-      title: r ? '去哪吃 - ' + r.name : '去哪吃 - 餐厅推荐',
+      title: r ? 'Where to Eat - ' + r.name : 'Where to Eat - 餐厅推荐',
       path: '/pages/detail/detail?id=' + (r ? r.restaurant_id : ''),
     }
   },

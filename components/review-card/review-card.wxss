@@ -1,8 +1,8 @@
 .review-card {
-  background: #FFFFFF;
-  border-radius: 12rpx;
-  padding: 20rpx;
-  margin-bottom: 16rpx;
+  background: transparent;
+  border-bottom: 2rpx solid #E8E0D5;
+  padding: 32rpx 0;
+  margin-bottom: 0;
 }
 
 .review-header {
@@ -13,8 +13,8 @@
 }
 
 .review-time {
-  font-size: 22rpx;
-  color: #999999;
+  font-size: 26rpx;
+  color: #8C847D;
 }
 
 .review-content-wrap {
@@ -22,8 +22,8 @@
 }
 
 .review-content {
-  font-size: 26rpx;
-  color: #444444;
+  font-size: 30rpx;
+  color: #3A332E;
   line-height: 1.6;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -37,8 +37,8 @@
 }
 
 .review-toggle {
-  font-size: 24rpx;
-  color: #FF6B35;
-  margin-top: 8rpx;
+  font-size: 28rpx;
+  color: #B86B52;
+  margin-top: 12rpx;
   display: inline-block;
 }

@@ -1,8 +1,8 @@
 page {
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  font-size: 28rpx;
-  color: #333333;
-  background-color: #F5F5F5;
+  font-family: 'Songti SC', 'STSong', 'SimSun', serif;
+  font-size: 30rpx;
+  color: #3A332E;
+  background-color: #FDFBF7;
   box-sizing: border-box;
 }
 
@@ -15,13 +15,15 @@ view, text, image, navigator {
 }
 
 .btn-primary {
-  background-color: #FF6B35;
+  background-color: #B86B52;
   color: #FFFFFF;
-  border-radius: 12rpx;
+  border-radius: 8rpx;
   padding: 24rpx 0;
   text-align: center;
-  font-size: 32rpx;
-  font-weight: 600;
+  font-size: 34rpx;
+  font-weight: bold;
+  letter-spacing: 4rpx;
+  box-shadow: 0 16rpx 40rpx rgba(184, 107, 82, 0.25);
 }
 
 .btn-primary:active {
@@ -29,9 +31,9 @@ view, text, image, navigator {
 }
 
 .section-title {
-  font-size: 32rpx;
-  font-weight: 600;
-  color: #333333;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #3A332E;
   margin-bottom: 16rpx;
 }
 

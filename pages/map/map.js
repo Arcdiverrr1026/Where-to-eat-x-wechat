@@ -1,5 +1,6 @@
 const api = require('../../utils/api')
 const locationUtil = require('../../utils/location')
+const config = require('../../utils/config')
 
 Page({
   data: {
@@ -11,7 +12,12 @@ Page({
     selectedRestaurant: null,
     loading: false,
     showFilter: false,
-    filters: null,
+    filters: {
+      category: config.CATEGORIES[0],
+      budget: config.BUDGETS[0],
+      distance: config.DISTANCES[0],
+      scene: config.SCENES[0],
+    },
   },
 
   onLoad() {
@@ -34,12 +40,7 @@ Page({
   },
 
   loadNearbyRestaurants() {
-    const filters = this.data.filters || {
-      category: '烧烤',
-      budget: '70以内',
-      distance: '3公里内',
-      scene: '宿舍聚餐',
-    }
+    const filters = this.data.filters
     this.setData({ loading: true })
 
     locationUtil.getLocation().then(loc => {
@@ -47,11 +48,17 @@ Page({
         location: { lat: loc.latitude, lng: loc.longitude },
         category: filters.category,
         budget: filters.budget,
+        budget_min: filters.budget_min,
+        budget_max: filters.budget_max,
         distance: filters.distance,
         scene: filters.scene,
       })
     }).then(res => {
-      const restaurants = res.list || []
+      const restaurants = (res.list || []).filter(r => r.lat && r.lng).map(r => {
+        r.tags = r.tags || []
+        r.risk_flags = r.risk_flags || []
+        return r
+      })
       const markers = restaurants.map((r, i) => ({
         id: i,
         latitude: r.lat,
@@ -99,7 +106,7 @@ Page({
   goToDetail() {
     const r = this.data.selectedRestaurant
     if (r) {
-      wx.navigateTo({ url: '/pages/detail/detail?id=' + r.restaurant_id + '&lat=' + r.lat + '&lng=' + r.lng })
+      wx.navigateTo({ url: '/pages/detail/detail?id=' + r.restaurant_id })
     }
   },
 
@@ -112,6 +119,11 @@ Page({
   },
 
   onSearch() {
+    const filters = this.data.filters
+    if (filters && filters.budget_min != null && filters.budget_max != null && filters.budget_min > filters.budget_max) {
+      wx.showToast({ title: '最低预算不能大于最高预算', icon: 'none' })
+      return
+    }
     this.setData({ showFilter: false, selectedRestaurant: null })
     this.loadNearbyRestaurants()
   },
@@ -130,7 +142,7 @@ Page({
 
   onShareAppMessage() {
     return {
-      title: '去哪吃 - 附近餐厅地图',
+      title: 'Where to Eat - 附近餐厅地图',
       path: '/pages/map/map',
     }
   },

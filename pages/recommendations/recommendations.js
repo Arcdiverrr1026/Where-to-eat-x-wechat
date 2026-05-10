@@ -1,4 +1,5 @@
 const api = require('../../utils/api')
+const reviewStore = require('../../utils/reviewStore')
 
 Page({
   data: {
@@ -17,9 +18,10 @@ Page({
   },
 
   onShow() {
-    // 从详情页返回时刷新数据（评价数可能已更新）
-    if (this.data.filters && this.data.restaurants.length > 0) {
-      this.fetchRecommendations(this.data.filters)
+    // 从详情页返回时，用本地缓存更新评价数（不发 API 请求）
+    if (this.data.restaurants.length > 0) {
+      const list = reviewStore.mergeReviewCounts(this.data.restaurants)
+      this.setData({ restaurants: list })
     }
   },
 
@@ -29,11 +31,21 @@ Page({
       location: params.location,
       category: params.category,
       budget: params.budget,
+      budget_min: params.budget_min,
+      budget_max: params.budget_max,
       distance: params.distance,
       scene: params.scene,
     }).then(res => {
+      const rawList = (res.list || []).map(r => {
+        r.tags = r.tags || []
+        r.risk_flags = r.risk_flags || []
+        return r
+      })
+      // 缓存 API 返回的评价数
+      reviewStore.updateCountCache(rawList)
+      const list = reviewStore.mergeReviewCounts(rawList)
       this.setData({
-        restaurants: res.list || [],
+        restaurants: list,
         total: res.total || 0,
         loading: false,
       })
@@ -54,7 +66,7 @@ Page({
 
   onShareAppMessage() {
     return {
-      title: '去哪吃 - 我找到了这些餐厅推荐',
+      title: 'Where to Eat - 餐厅推荐',
       path: '/pages/index/index',
     }
   },
